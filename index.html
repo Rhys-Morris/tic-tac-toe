@@ -9,7 +9,8 @@
 <body>
     <div class="player-one">
         <form action="submit" class="form-div">
-            <input type="text" class="player-name" id="player-name-one" placeholder="Enter name for Player One">
+            <label for="player-name-one" class="label">Player One Name:</label>
+            <input type="text" class="player-name" name="player-name-one" id="player-name-one">
             <input type="submit" class="submit-name" id="player-one">
         </form>
     </div>
@@ -33,9 +34,12 @@
     </div>
     <div class="player-two">
         <form action="submit" class="form-div">
-            <input type="text" class="player-name" id="player-name-two" placeholder="Enter name for Player Two">
+            <label for="player-name-two" class="label">Player Two Name:</label>
+            <input type="text" class="player-name" name="player-name-two" id="player-name-two">
             <input type="submit" class="submit-name" id="player-two">
         </form>
+            <span>OR</span>
+            <button class="ai">Play AI</button>
     </div>
     <script src="script.js"></script>
 </body>

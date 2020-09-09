@@ -44,7 +44,7 @@ body {
 }
 
 .status {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
 }
 
 .reset {
@@ -52,20 +52,15 @@ body {
     border: 2px solid #f2f2f2;
     color: #f2f2f2;
     background-color: #1496bd;
-    transition: .1s all;
     font-size: 1.4rem;
     padding: .5rem .8rem;
     border-radius: .75rem;
+    transition: .1s all;
 }
 
 .reset:hover {
-    transform: translateY(-.1rem);
     background-color: #117b9b;
     cursor: pointer;
-}
-
-.reset:active {
-    transform: translate(0);
 }
 
 .grid {
@@ -105,19 +100,69 @@ body {
     align-items: center;
 }
 
+.player-one {
+    margin-top: 30rem;
+    align-self: flex-start;
+}
+
+.player-two {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    margin-top: 30rem;
+}
+
+.label {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.player-two span {
+    margin: 1rem 0;
+}
+
 .player-name {
     padding: 1rem 1.5rem;
     border-radius: 1rem;
-    border: 1px solid #444;
     outline: none;
+    border: none;
+    background-color: #1496bd;
+    color: #f2f2f2;
+}
+
+.player-name:focus {
+    outline: none;
+    border: none;
+    background-color: #1496bd;
+    color: #f2f2f2;
 }
 
 .submit-name {
     outline: none;
     border: none;
     padding: .75rem 1rem;
-    margin-top: 1rem;
+    margin-top: 2rem;
     border-radius: .75rem;
     background-color: #1496bd;
     color: #f2f2f2;
+    cursor: pointer;
+    transition: .1s all;
+}
+
+.ai {
+    outline: none;
+    border: none;
+    padding: .75rem 1rem;
+    border-radius: .75rem;
+    background-color: #1496bd;
+    color: #f2f2f2;
+    cursor: pointer;
+    transition: .1s all;
+}
+
+.submit-name:hover,
+.ai:hover {
+    background-color: #117b9b;
 }

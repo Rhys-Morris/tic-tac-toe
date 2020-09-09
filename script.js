@@ -7,6 +7,7 @@ const playerOneSelect = document.querySelector("#player-one");
 const playerTwoSelect = document.querySelector("#player-two");
 const playerOneName = document.querySelector('#player-name-one');
 const playerTwoName = document.querySelector('#player-name-two');
+const aiToggle = document.querySelector(".ai");
 
 // ------ Game Variables ------
 
@@ -15,19 +16,37 @@ let playerOneIsNext = true;
 let moveCount = 0;
 let playerOne = null;
 let playerTwo = null;
+let aiLive = false;
 
 // Functions
+
+const aiMove = () => {
+    let validMoves = [];
+    for (let i = 0; i < cellDivs.length; i++) {
+        if (cellDivs[i].classList.contains('o') || cellDivs[i].classList.contains('x')) {
+        } else {
+            validMoves.push(i);
+        }
+    }
+    let randomPick = Math.floor(Math.random() * validMoves.length);
+    let choice = validMoves[randomPick];
+    cellDivs[choice].classList.add('o');
+    playerOneIsNext = !playerOneIsNext;
+    moveCount++;
+};
 
 const handleWinner = (winner) => {
     gameIsLive = false;
     if (winner === "x") {
         statusDiv.textContent = `${playerOne} has won!`
-        statusDiv.style.color = "red";
     } else {
-        statusDiv.textContent = `${playerTwo} has won!`
-        statusDiv.style.color = "red";
+        if (aiLive) { statusDiv.textContent = `The AI has won!` }
+        else {
+            statusDiv.textContent = `${playerTwo} has won!`
+        }
     }
-}
+    statusDiv.style.color = "red";
+};
 
 const checkGameState = () => {
     const topLeft = cellDivs[0].classList[1];
@@ -61,7 +80,10 @@ const checkGameState = () => {
         gameIsLive = false;
         statusDiv.textContent = `Game is a tie!`
     } else {
-        playerOneIsNext = !playerOneIsNext;
+        if (playerOne === null) { playerOne = "Player One"; }
+        if (playerTwo === null) { playerTwo = "Player Two"; }
+        if (!playerOneIsNext) { statusDiv.textContent = `${playerTwo}'s turn`; }
+        if (playerOneIsNext) { statusDiv.textContent = `${playerOne}'s turn`; }
     }
 };
 
@@ -76,8 +98,13 @@ resetDiv.addEventListener('click', (e) => {
     }
     gameIsLive = true;
     playerOneIsNext = true;
-    statusDiv.textContent = `${playerOne}'s turn`
+    if (playerOne !== null) {
+        statusDiv.textContent = `${playerOne}'s turn`;
+    } else {
+        statusDiv.textContent = `Player One's turn`;
+    }
     moveCount = 0;
+    aiLive = false;
 });
 
 // Place marker on cell
@@ -86,16 +113,22 @@ for (let cellDiv of cellDivs) {
 
         if (!gameIsLive) {return}
 
+        moveCount++;
+        
         if (e.target.classList[1]) { return }
         if (playerOneIsNext) {
             e.target.classList.add("x");
-            statusDiv.textContent = `${playerOne}'s turn`
+            playerOneIsNext = !playerOneIsNext;
+            checkGameState();
+            if (aiLive === true && gameIsLive=== true) {
+                aiMove();
+                checkGameState();
+            }
         } else { 
             e.target.classList.add("o");
-            statusDiv.textContent = `${playerTwo}'s turn`
+            playerOneIsNext = !playerOneIsNext;
+            checkGameState();
         }
-        moveCount++;
-        checkGameState();
     });
 }
 
@@ -115,4 +148,11 @@ playerTwoSelect.addEventListener('click', (e) => {
 
     playerTwo = playerTwoName.value;
     console.log(playerTwo);
+});
+
+// Toggle AI
+
+aiToggle.addEventListener('click', (e) => {
+    if (moveCount > 0) { return }
+    aiLive = !aiLive;
 });
